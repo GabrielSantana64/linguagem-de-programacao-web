@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora</title>
+</head>
+<body>
+    <h2>Calculadora</h2>
+    <form method="post">
+        <!-- Campo de entrada para o primeiro número -->
+        Número 1: <input type="number" name="num1" required><br><br> <!-- Variável 'num1' -->
+        <!-- Campo de entrada para o segundo número -->
+        Número 2: <input type="number" name="num2" required><br><br> <!-- Variável 'num2' -->
+        <!-- Campo de seleção para escolher a operação -->
+        Operação:
+        <select name="operacao" required> <!-- Variável 'operacao' -->
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select><br><br>
+        <input type="submit" name="calcular" value="Calcular">
+    </form>
+
+    <?php
+    // Verifica se o formulário foi enviado usando o método POST
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { // Superglobal $_SERVER
+        // Recebe o valor do primeiro número digitado no formulário
+        $num1 = $_POST['num1']; // Variável 'num1'
+        // Recebe o valor do segundo número digitado no formulário
+        $num2 = $_POST['num2']; // Variável 'num2'
+        // Recebe a operação selecionada no formulário (soma, subtração, multiplicação ou divisão)
+        $operacao = $_POST['operacao']; // Variável 'operacao'
+        // Inicializa a variável para armazenar o resultado da operação
+        $resultado = 0; // Variável 'resultado'
+
+        // Verifica qual operação foi selecionada e realiza o cálculo correspondente
+        if ($operacao == '+') { // Comparação com a variável 'operacao'
+            // Soma os dois números
+            $resultado = $num1 + $num2; // Atribuição para a variável 'resultado'
+        } elseif ($operacao == '-') { // Comparação com a variável 'operacao'
+            // Subtrai o segundo número do primeiro
+            $resultado = $num1 - $num2; // Atribuição para a variável 'resultado'
+        } elseif ($operacao == '*') { // Comparação com a variável 'operacao'
+            // Multiplica os dois números
+            $resultado = $num1 * $num2; // Atribuição para a variável 'resultado'
+        } elseif ($operacao == '/') { // Comparação com a variável 'operacao'
+            // Verifica se o divisor não é zero para evitar divisão por zero
+            if ($num2 != 0) { // Verificação da variável 'num2'
+                // Divide o primeiro número pelo segundo
+                $resultado = $num1 / $num2; // Atribuição para a variável 'resultado'
+            } else {
+                // Atribui mensagem de erro caso a divisão por zero seja tentada
+                $resultado = 'Erro: Divisão por zero'; // Atribuição para a variável 'resultado'
+            }
+        }
+
+        // Exibe o resultado da operação para o usuário
+        echo "<h3>O resultado da operação é: $resultado</h3>"; // Exibição da variável 'resultado'
+    }
+    ?>
+</body>
+</html>
